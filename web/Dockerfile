@@ -7,4 +7,6 @@ RUN npm install
 
 COPY . .
 
+USER node
+
 CMD ["node", "server.js"]
