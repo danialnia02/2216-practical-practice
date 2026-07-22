@@ -34,5 +34,14 @@ pipeline{
                 }
             }
         }
+        stage('SonarQube Analysis'){
+            steps{
+                dir('web'){
+                    withSonarQubeEnv('sonarqube') {
+                        sh "sonar-scanner"
+                    }
+                }
+            }
+        }
     }
 }

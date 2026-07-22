@@ -4,6 +4,7 @@ services:
       context: ./jenkins
       dockerfile: Dockerfile
     container_name: jenkins
+    restart: unless-stopped
     ports:
       - "8080:8080"
     volumes:
@@ -36,9 +37,26 @@ services:
     networks:
       - appnet
 
+  sonarqube:
+    image: sonarqube:latest
+    container_name: sonarqube
+    ports:
+      - "9000:9000"
+    environment:
+      - SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true
+    networks:
+      - appnet
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+
+
+
 
 volumes:
   jenkins_home:
+  sonarqube_data:
+  sonarqube_extensions:
 
 networks:
   appnet:
