@@ -1,31 +1,38 @@
 pipeline{
     agent any
 
+    environment {
+        BASE_URL = 'http://nginx'
+    }
+
     stages {
         stage('Install Dependencies') {
             steps {
+                dir('web'){
                 sh 'npm install'
+                }
             }
         }
-
         stage('Integration Tests') {
             steps {
-                sh 'TODO'
+                dir('web'){
+                    sh 'npm run test:integration'
+                }
             }
         }
-
         stage('Dependency Check'){
             steps{
-                sh "npm audit"
+                dir('web'){
+                    sh "npm audit"
+                }
             }
         }
-
         stage('Unit Tests') {
             steps {
-                sh 'npm test'
+                dir('web'){
+                    sh 'npm test:ui'
+                }
             }
         }
     }
-
-
 }
