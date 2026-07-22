@@ -30,7 +30,7 @@ pipeline{
         stage('Unit Tests') {
             steps {
                 dir('web'){
-                    sh 'npm test:ui'
+                    sh 'npm run test:ui'
                 }
             }
         }
